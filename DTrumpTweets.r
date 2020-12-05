@@ -1,7 +1,7 @@
 # Text Mining Assignment done by Agbo, Chidi Ugo (XMHPFX)
 # Read the Donald Trumps tweets script from the my working directory
 library(readr)
-DT_tweets <- read_csv("C:/Users/darli/OneDrive/Desktop/Corvinus School Materials/RStudio Training/DT_tweets.csv")
+DT_tweets <- read_csv("DT_tweets.csv")
 View(DT_tweets)
 
 # Had to remove some columns that are not relevant in the analysis as shown below;
@@ -162,7 +162,7 @@ ggraph(Bigram_graph, layout = "fr") +
 library(textdata)
 get_sentiments("afinn")
 get_sentiments("bing")
-nrc <- read_csv("C:/Users/darli/OneDrive/Desktop/Corvinus School Materials/RStudio Training/nrc.csv")
+nrc <- read_csv("nrc.csv")
 nrc
 
 #Let me get the words expressing joy according to the NRC lexicon
