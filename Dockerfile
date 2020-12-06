@@ -1,9 +1,37 @@
 #We want to use the r-base as the base image
-FROM r-base:3.4.2
+FROM rocker/rstudio:latest
 
+RUN apt-get update -qq && apt-get -y --no-install-recommends install \
+  libxml2-dev \
+  libxt-dev \
+  libjpeg-dev \
+  libglu1-mesa-dev \
+  libcairo2-dev \
+  libsqlite3-dev \
+  libmariadbd-dev \
+  libmariadb-client-lgpl-dev \
+  libpq-dev \
+  libssh2-1-dev \
+  unixodbc-dev \
+  git \
+  && R -e "source('https://bioconductor.org/biocLite.R')" \
+  && install2.r --error \
+    --deps TRUE \
+    shiny \
+    dplyr \
+    tidytext \
+    stringr \
+    tidyr \
+    ggplot2 \
+    wordcloud2\
+    scales \
+    igraph \
+    ggraph \
+    widyr \
+    topicmodels \
+    textdata
 #Updating to the latest version
-RUN app-get update
-
+#RUN app-get update
 #To clone the git repository
 RUN git clone https://github.com/Chidi93/sentiment-Analysis.git
 
