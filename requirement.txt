@@ -1,0 +1,13 @@
+r-cran-dplyr
+r-cran-tidytext
+r-cran-stringr
+r-cran-tidyr
+r-cran-ggplot2
+r-cran-wordcloud2
+r-cran-scales
+r-cran-igraph
+r-cran-ggraph
+r-cran-widyr
+r-cran-topicmodels
+r-cran-textdata
+
