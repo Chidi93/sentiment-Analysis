@@ -1,8 +1,10 @@
+#! /usr/local/bin/Rscript
+
 # Text Mining Assignment done by Agbo, Chidi Ugo (XMHPFX)
 # Read the Donald Trumps tweets script from the my working directory
 library(readr)
 DT_tweets <- read_csv("DT_tweets.csv")
-View(DT_tweets)
+#View(DT_tweets)
 
 # Had to remove some columns that are not relevant in the analysis as shown below;
 DT_tweets$Media_Type <- NULL
@@ -22,6 +24,8 @@ library(igraph)
 library(ggraph)
 library(widyr)
 library(topicmodels) 
+
+dyn.load("/home/ec2-user/GLPK/lib/libglpk.so.0")
 
 #Data PreProcessing
 

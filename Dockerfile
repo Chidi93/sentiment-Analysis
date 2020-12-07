@@ -1,47 +1,52 @@
-FROM rocker/r-apt:bionic
-WORKDIR /app
+#Starting with the r-base intermediary image that support git
+FROM rocker/tidyverse:latest
 
-RUN apt-get update && \
-  apt-get install -y libxml2-dev
+RUN apt install -y git
 
-# Install binaries (see https://datawookie.netlify.com/blog/2019/01/docker-images-for-r-r-base-versus-r-apt/)
-COPY ./requirements.txt .
-RUN cat requirements.txt | xargs apt-get install -y -qq
 
-# Install remaining packages from source
-COPY ./requirements.R .
-RUN Rscript requirements.R
+#To clone the git repo
+RUN git clone https://github.com/Chidi93/sentiment-Analysis.git
+
+WORKDIR /sentiment-Analysis
+
+# Install R packages
+RUN install2.r --error \
+    methods \
+    jsonlite \
+    tseries \
+    tidytext \
+    stringr \
+    tidyr \
+    ggplot2 \
+    wordcloud2 \
+    scales \
+    ggraph \
+    widyr \
+    topicmodels \
+    textdata \
+    dplyr
+
+#RUN Rscript -e "install.packages('tidytext', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('stringr', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('tidyr', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('ggplot2', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('wordcloud2', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('scales', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('igraph', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('ggraph', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('widyr', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('topicmodels', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('textdata', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('Rcpp', dependencies = TRUE)"
+#RUN Rscript -e "install.packages('dplyr', dependencies = TRUE)"
 
 # Clean up package registry
-RUN rm -rf /var/lib/apt/lists/*
+#RUN rm -rf /var/lib/apt/lists/*
 
-COPY ./src /app
+#Copy the csv files and the R script
+COPY DT_tweets.csv .
+COPY nrc.csv .
+COPY DTrumpTweets.R .
 
-EXPOSE 5000
 CMD ["Rscript", "./DTrumpTweets.R"]
-
-#We want to use the r-base as the base image
-#FROM rocker/rstudio:latest
-
-#RUN apt-get update -qq && apt-get -y --no-install-recommends install \
-    
-#Updating to the latest version
-#RUN app-get update
-
-#Working directory
-#WORKDIR /sentiment-Analysis
-
-#We need to copy Donald Tweets csv file
-#COPY DT_tweets.csv .
-
-#Copying the Lexicon File
-#COPY nrc.csv .
-#We need to copy the Rscript
-#COPY DTrumpTweets.R .
-
-#Installing the need r library from the install_package folder
-
-
-# Run the Rscript code
-#CMD [ "Rscript", "./DTrumpTweets.R" ]
 
