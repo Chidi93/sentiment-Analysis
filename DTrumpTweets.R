@@ -25,8 +25,6 @@ library(ggraph)
 library(widyr)
 library(topicmodels) 
 
-dyn.load("/home/ec2-user/GLPK/lib/libglpk.so.0")
-
 #Data PreProcessing
 
 #Breaking the Donald Trump's tweet into tokens: this will be done by tokenizing the text by words
